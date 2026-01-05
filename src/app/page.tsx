@@ -21,61 +21,74 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden" aria-labelledby="hero-heading">
         {/* Background gradient */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary-50/50 to-transparent dark:from-primary-950/20" />
-        <div className="absolute inset-0 -z-10 bg-[url('/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+        <div
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-primary-50/50 to-transparent dark:from-primary-950/20"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 -z-10 bg-[url('/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"
+          aria-hidden="true"
+        />
 
-        <div className="container-custom py-20 sm:py-28 lg:py-36">
+        <div className="container-custom py-16 sm:py-24 lg:py-32">
           <div className="mx-auto max-w-4xl text-center">
             {/* Badge */}
             <div className="animate-in mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-4 py-2 text-sm font-medium text-primary-700 dark:border-primary-800 dark:bg-primary-950 dark:text-primary-300">
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-4 w-4" aria-hidden="true" />
               Available for freelance work
             </div>
 
             {/* Heading */}
-            <h1 className="animate-in animate-delay-100 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl lg:text-6xl">
+            <h1
+              id="hero-heading"
+              className="animate-in animate-delay-100 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl lg:text-6xl"
+            >
               Hi, I&apos;m{' '}
               <span className="gradient-text animate-gradient bg-[length:200%_auto]">Amarjit</span>
               <br />
-              Full Stack Developer
+              <span className="mt-2 block">Full Stack Developer</span>
             </h1>
 
             {/* Description */}
-            <p className="animate-in animate-delay-200 mx-auto mt-6 max-w-2xl text-lg text-neutral-600 dark:text-neutral-400 sm:text-xl">
+            <p className="animate-in animate-delay-200 mx-auto mt-6 max-w-2xl text-base leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-lg md:text-xl">
               {author.bio}
             </p>
 
-            {/* CTA Buttons */}
-            <div className="animate-in animate-delay-300 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href="/contact" className="btn-primary text-base">
-                <Mail className="h-5 w-5" />
+            {/* CTA Buttons - Stack on mobile, row on larger screens */}
+            <div className="animate-in animate-delay-300 mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
+              <Link href="/contact" className="btn-primary w-full text-base sm:w-auto">
+                <Mail className="h-5 w-5" aria-hidden="true" />
                 Get in Touch
               </Link>
-              <Link href="/projects" className="btn-secondary text-base">
+              <Link href="/projects" className="btn-secondary w-full text-base sm:w-auto">
                 View My Work
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
-              <a href="/resume.pdf" download className="btn-ghost text-base">
-                <Download className="h-5 w-5" />
+              <a href="/resume.pdf" download className="btn-ghost w-full text-base sm:w-auto">
+                <Download className="h-5 w-5" aria-hidden="true" />
                 Download CV
               </a>
             </div>
 
-            {/* Stats */}
-            <div className="animate-in animate-delay-400 mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {/* Stats - 2x2 grid on mobile, single row on larger */}
+            <div
+              className="animate-in animate-delay-400 mt-12 grid grid-cols-2 gap-6 sm:mt-16 sm:grid-cols-4 sm:gap-8"
+              role="list"
+              aria-label="Key statistics"
+            >
               {[
                 { label: 'Projects Built', value: '6+' },
                 { label: 'Technologies', value: '20+' },
                 { label: 'Currently', value: 'MCA' },
                 { label: 'Focus Area', value: 'Full Stack' },
               ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 sm:text-4xl">
+                <div key={stat.label} className="text-center" role="listitem">
+                  <div className="text-2xl font-bold text-primary-600 dark:text-primary-400 sm:text-3xl lg:text-4xl">
                     {stat.value}
                   </div>
-                  <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  <div className="mt-1 text-xs text-neutral-600 dark:text-neutral-400 sm:text-sm">
                     {stat.label}
                   </div>
                 </div>
@@ -86,25 +99,39 @@ export default function HomePage() {
       </section>
 
       {/* About Section */}
-      <Section id="about" className="bg-neutral-50 dark:bg-neutral-900/50">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+      <Section
+        id="about"
+        className="bg-neutral-50 dark:bg-neutral-900/50"
+        aria-labelledby="about-heading"
+      >
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
           {/* Image */}
-          <div className="relative mx-auto aspect-square w-full max-w-md lg:mx-0">
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary-500 to-accent-500 opacity-20 blur-3xl" />
+          <div className="relative mx-auto aspect-square w-full max-w-sm lg:mx-0 lg:max-w-md">
+            <div
+              className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary-500 to-accent-500 opacity-20 blur-3xl"
+              aria-hidden="true"
+            />
             <div className="relative h-full w-full overflow-hidden rounded-3xl border-2 border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
               <Image
                 src={author.avatar}
                 alt="Amarjit - Full Stack Developer"
                 fill
                 className="object-cover"
+                sizes="(max-width: 640px) 280px, (max-width: 1024px) 350px, 400px"
                 priority
               />
             </div>
-            {/* Floating elements */}
-            <div className="absolute -right-4 -top-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
+            {/* Floating elements - hidden on mobile for cleaner look */}
+            <div
+              className="absolute -right-4 -top-4 hidden rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-800 sm:block"
+              aria-hidden="true"
+            >
               <Code2 className="h-8 w-8 text-primary-600 dark:text-primary-400" />
             </div>
-            <div className="absolute -bottom-4 -left-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
+            <div
+              className="absolute -bottom-4 -left-4 hidden rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-800 sm:block"
+              aria-hidden="true"
+            >
               <Briefcase className="h-8 w-8 text-accent-600 dark:text-accent-400" />
             </div>
           </div>
@@ -115,7 +142,7 @@ export default function HomePage() {
               title="About Me"
               subtitle="Passionate about creating exceptional digital experiences"
             />
-            <div className="space-y-4 text-neutral-600 dark:text-neutral-400">
+            <div className="space-y-4 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-base">
               <p>
                 I&apos;m a Full Stack Developer and MCA student based in Pune, specializing in
                 building secure, scalable web applications. I bridge the gap between robust backend
@@ -161,23 +188,28 @@ export default function HomePage() {
       </Section>
 
       {/* Featured Projects Section */}
-      <Section id="projects">
+      <Section id="projects" aria-labelledby="projects-heading">
         <SectionHeader
           title="Featured Projects"
           subtitle="A selection of my recent work and personal projects"
           centered
         />
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
           {featuredProjects.slice(0, 4).map((project, index) => (
-            <ProjectCard key={project.id} project={project} featured={index === 0} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              featured={index === 0}
+              priority={index === 0}
+            />
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center sm:mt-12">
           <Link href="/projects" className="btn-primary">
             View All Projects
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
       </Section>

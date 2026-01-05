@@ -62,8 +62,11 @@ export default function RootLayout({
         />
       </head>
       <body className="flex min-h-screen flex-col font-sans antialiased">
-        {/* Skip Link for Accessibility */}
-        <a href="#main-content" className="skip-link">
+        {/* Skip Link for Accessibility - Enhanced visibility */}
+        <a
+          href="#main-content"
+          className="fixed left-4 top-4 z-[100] -translate-y-full rounded-lg bg-primary-600 px-4 py-3 text-sm font-medium text-white shadow-lg transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+        >
           Skip to main content
         </a>
 
@@ -71,7 +74,7 @@ export default function RootLayout({
         <Header />
 
         {/* Main Content */}
-        <main id="main-content" className="flex-1 pt-16 md:pt-20">
+        <main id="main-content" role="main" className="flex-1 pt-16 md:pt-20" tabIndex={-1}>
           {children}
         </main>
 

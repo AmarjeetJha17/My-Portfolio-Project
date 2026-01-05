@@ -57,10 +57,13 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Ensure minimum 16px font size on mobile for accessibility */
+    font-size: 100%;
   }
 
   body {
     @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50;
+    @apply text-base leading-relaxed;
     font-feature-settings:
       'rlig' 1,
       'calt' 1;
@@ -105,6 +108,8 @@
   /* Button base styles */
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    /* Minimum touch target for mobile accessibility */
+    min-height: 44px;
   }
 
   .btn-primary {
@@ -134,7 +139,9 @@
 
   /* Input styles */
   .input {
-    @apply w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:placeholder:text-neutral-400;
+    @apply w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:placeholder:text-neutral-400;
+    /* Minimum touch target height for mobile */
+    min-height: 48px;
   }
 
   .input-error {
@@ -149,7 +156,7 @@
 
   /* Prose styles for blog content */
   .prose-custom {
-    @apply prose prose-neutral dark:prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-neutral-100 prose-code:px-1 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none dark:prose-a:text-primary-400 dark:prose-code:bg-neutral-800 max-w-none;
+    @apply prose prose-neutral max-w-none dark:prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-neutral-100 prose-code:px-1 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none dark:prose-a:text-primary-400 dark:prose-code:bg-neutral-800;
   }
 
   /* Animation utilities */
@@ -240,5 +247,17 @@
   body {
     font-size: 12pt;
     line-height: 1.5;
+  }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

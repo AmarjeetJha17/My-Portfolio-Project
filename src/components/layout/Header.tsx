@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Moon, Sun, Github, Linkedin, Twitter } from 'lucide-react';
@@ -35,7 +35,33 @@ export function Header() {
     localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
   };
 
-  const closeMenu = () => setIsMenuOpen(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+
+  // Close menu on ESC key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMenuOpen, closeMenu]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -133,82 +159,118 @@ export function Header() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="btn-ghost p-2 md:hidden"
+              className="btn-ghost min-h-[44px] min-w-[44px] p-2 md:hidden"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav-menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        <div
-          className={cn(
-            'overflow-hidden transition-all duration-300 md:hidden',
-            isMenuOpen ? 'max-h-96 pb-4' : 'max-h-0'
-          )}
-        >
-          <div className="flex flex-col gap-1 pt-2">
-            {navigation.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMenu}
-                  className={cn(
-                    'rounded-lg px-4 py-3 text-base font-medium transition-colors',
-                    isActive
-                      ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
-                      : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white'
-                  )}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-
-            {/* Mobile Social Links */}
-            <div className="mt-4 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 dark:border-neutral-800">
-              {author.social.github && (
-                <a
-                  href={author.social.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost p-2"
-                  aria-label="GitHub Profile"
-                >
-                  <Github className="h-5 w-5" />
-                </a>
-              )}
-              {author.social.linkedin && (
-                <a
-                  href={author.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost p-2"
-                  aria-label="LinkedIn Profile"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              )}
-              {author.social.twitter && (
-                <a
-                  href={author.social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost p-2"
-                  aria-label="Twitter Profile"
-                >
-                  <Twitter className="h-5 w-5" />
-                </a>
-              )}
-            </div>
-          </div>
-        </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile Navigation Slide-out Panel */}
+      <div
+        id="mobile-nav-menu"
+        ref={menuRef}
+        className={cn(
+          'fixed inset-y-0 right-0 z-50 w-4/5 max-w-sm transform bg-white shadow-xl transition-transform duration-300 ease-in-out dark:bg-neutral-900 md:hidden',
+          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        )}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation menu"
+      >
+        {/* Close button inside panel */}
+        <div className="flex h-16 items-center justify-between border-b border-neutral-200 px-4 dark:border-neutral-800">
+          <span className="text-lg font-semibold text-neutral-900 dark:text-white">Menu</span>
+          <button
+            onClick={closeMenu}
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+            aria-label="Close menu"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        <nav className="flex flex-col gap-2 p-4" aria-label="Mobile navigation">
+          {navigation.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+                className={cn(
+                  'flex min-h-[48px] items-center rounded-lg px-4 text-base font-medium transition-colors',
+                  isActive
+                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
+                    : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white'
+                )}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+
+          {/* Mobile CTA Button */}
+          <Link
+            href="/contact"
+            onClick={closeMenu}
+            className="mt-4 flex min-h-[48px] items-center justify-center rounded-lg bg-primary-600 px-4 font-medium text-white hover:bg-primary-700"
+          >
+            Get in Touch
+          </Link>
+
+          {/* Mobile Social Links */}
+          <div className="mt-6 flex items-center justify-center gap-4 border-t border-neutral-200 pt-6 dark:border-neutral-800">
+            {author.social.github && (
+              <a
+                href={author.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                aria-label="GitHub Profile"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+            )}
+            {author.social.linkedin && (
+              <a
+                href={author.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                aria-label="LinkedIn Profile"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+            )}
+            {author.social.twitter && (
+              <a
+                href={author.social.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                aria-label="Twitter Profile"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+            )}
+          </div>
+        </nav>
+      </div>
     </header>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -34,6 +34,7 @@ interface ContactFormProps {
 export function ContactForm({ className }: ContactFormProps) {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   const {
     register,
@@ -84,14 +85,31 @@ export function ContactForm({ className }: ContactFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn('space-y-6', className)} noValidate>
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit(onSubmit)}
+      className={cn('space-y-6', className)}
+      noValidate
+      aria-label="Contact form"
+    >
+      {/* Live region for form status announcements */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {formState === 'submitting' && 'Sending your message...'}
+        {formState === 'success' && 'Message sent successfully!'}
+        {formState === 'error' && `Error: ${errorMessage}`}
+      </div>
+
       {/* Success Message */}
       {formState === 'success' && (
         <div
           className="flex items-start gap-3 rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-900 dark:bg-green-950"
           role="alert"
+          aria-live="assertive"
         >
-          <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600 dark:text-green-400" />
+          <CheckCircle2
+            className="h-5 w-5 shrink-0 text-green-600 dark:text-green-400"
+            aria-hidden="true"
+          />
           <div>
             <h4 className="font-medium text-green-800 dark:text-green-200">
               Message sent successfully!
@@ -108,8 +126,12 @@ export function ContactForm({ className }: ContactFormProps) {
         <div
           className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950"
           role="alert"
+          aria-live="assertive"
         >
-          <AlertCircle className="h-5 w-5 shrink-0 text-red-600 dark:text-red-400" />
+          <AlertCircle
+            className="h-5 w-5 shrink-0 text-red-600 dark:text-red-400"
+            aria-hidden="true"
+          />
           <div>
             <h4 className="font-medium text-red-800 dark:text-red-200">Failed to send message</h4>
             <p className="mt-1 text-sm text-red-700 dark:text-red-300">{errorMessage}</p>
@@ -123,19 +145,25 @@ export function ContactForm({ className }: ContactFormProps) {
           htmlFor="name"
           className="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
         >
-          Name <span className="text-red-500">*</span>
+          Name{' '}
+          <span className="text-red-500" aria-hidden="true">
+            *
+          </span>
+          <span className="sr-only">(required)</span>
         </label>
         <input
           type="text"
           id="name"
+          autoComplete="name"
           {...register('name')}
           className={cn('input', errors.name && 'input-error')}
           placeholder="John Doe"
+          aria-required="true"
           aria-invalid={errors.name ? 'true' : 'false'}
           aria-describedby={errors.name ? 'name-error' : undefined}
         />
         {errors.name && (
-          <p id="name-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+          <p id="name-error" className="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">
             {errors.name.message}
           </p>
         )}
@@ -147,19 +175,25 @@ export function ContactForm({ className }: ContactFormProps) {
           htmlFor="email"
           className="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
         >
-          Email <span className="text-red-500">*</span>
+          Email{' '}
+          <span className="text-red-500" aria-hidden="true">
+            *
+          </span>
+          <span className="sr-only">(required)</span>
         </label>
         <input
           type="email"
           id="email"
+          autoComplete="email"
           {...register('email')}
           className={cn('input', errors.email && 'input-error')}
           placeholder="john@example.com"
+          aria-required="true"
           aria-invalid={errors.email ? 'true' : 'false'}
           aria-describedby={errors.email ? 'email-error' : undefined}
         />
         {errors.email && (
-          <p id="email-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+          <p id="email-error" className="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">
             {errors.email.message}
           </p>
         )}
@@ -171,7 +205,11 @@ export function ContactForm({ className }: ContactFormProps) {
           htmlFor="subject"
           className="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
         >
-          Subject <span className="text-red-500">*</span>
+          Subject{' '}
+          <span className="text-red-500" aria-hidden="true">
+            *
+          </span>
+          <span className="sr-only">(required)</span>
         </label>
         <input
           type="text"
@@ -179,11 +217,16 @@ export function ContactForm({ className }: ContactFormProps) {
           {...register('subject')}
           className={cn('input', errors.subject && 'input-error')}
           placeholder="Project Inquiry"
+          aria-required="true"
           aria-invalid={errors.subject ? 'true' : 'false'}
           aria-describedby={errors.subject ? 'subject-error' : undefined}
         />
         {errors.subject && (
-          <p id="subject-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+          <p
+            id="subject-error"
+            className="mt-2 text-sm text-red-600 dark:text-red-400"
+            role="alert"
+          >
             {errors.subject.message}
           </p>
         )}
@@ -195,7 +238,11 @@ export function ContactForm({ className }: ContactFormProps) {
           htmlFor="message"
           className="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
         >
-          Message <span className="text-red-500">*</span>
+          Message{' '}
+          <span className="text-red-500" aria-hidden="true">
+            *
+          </span>
+          <span className="sr-only">(required)</span>
         </label>
         <textarea
           id="message"
@@ -203,26 +250,36 @@ export function ContactForm({ className }: ContactFormProps) {
           rows={6}
           className={cn('input resize-none', errors.message && 'input-error')}
           placeholder="Tell me about your project..."
+          aria-required="true"
           aria-invalid={errors.message ? 'true' : 'false'}
           aria-describedby={errors.message ? 'message-error' : undefined}
         />
         {errors.message && (
-          <p id="message-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+          <p
+            id="message-error"
+            className="mt-2 text-sm text-red-600 dark:text-red-400"
+            role="alert"
+          >
             {errors.message.message}
           </p>
         )}
       </div>
 
       {/* Submit Button */}
-      <button type="submit" disabled={formState === 'submitting'} className="btn-primary w-full">
+      <button
+        type="submit"
+        disabled={formState === 'submitting'}
+        className="btn-primary w-full"
+        aria-describedby={formState === 'submitting' ? 'submit-status' : undefined}
+      >
         {formState === 'submitting' ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" />
-            Sending...
+            <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+            <span id="submit-status">Sending...</span>
           </>
         ) : (
           <>
-            <Send className="h-4 w-4" />
+            <Send className="h-5 w-5" aria-hidden="true" />
             Send Message
           </>
         )}
