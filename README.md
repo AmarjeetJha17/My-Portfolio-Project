@@ -1,6 +1,14 @@
-# Amarjit Portfolio
+# Amarjit Jha - Portfolio
+
+[![Live Demo](https://img.shields.io/badge/Live-amarjit--portfolio.vercel.app-blue?style=for-the-badge)](https://amarjit-portfolio.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-AmarjeetJha17-181717?style=for-the-badge&logo=github)](https://github.com/AmarjeetJha17)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Amarjit%20Jha-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/amarjit-jha-556656280)
 
 A modern, production-ready personal portfolio website built with Next.js 14, React 18, TypeScript, and Tailwind CSS.
+
+## 🌐 Live Demo
+
+**[https://amarjit-portfolio.vercel.app](https://amarjit-portfolio.vercel.app)**
 
 ## 🚀 Features
 
@@ -42,8 +50,8 @@ A modern, production-ready personal portfolio website built with Next.js 14, Rea
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/amarjit/portfolio.git
-cd portfolio
+git clone https://github.com/AmarjeetJha17/My-Portfolio-Project.git
+cd My-Portfolio-Project
 ```
 
 ### 2. Install dependencies
@@ -167,7 +175,7 @@ Route (app)                    Size     First Load JS
 
 ```bash
 # Build the application
-pnpm build
+npm run build
 
 # The output is in the .next folder
 # Deploy using your preferred hosting service
