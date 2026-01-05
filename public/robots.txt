@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/*
+Disallow: /admin/*
+
+# Host
+Host: https://amarjit.dev
+
+# Sitemaps
+Sitemap: https://amarjit.dev/sitemap.xml
