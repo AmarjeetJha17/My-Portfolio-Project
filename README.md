@@ -1,6 +1,6 @@
 # Amarjit Jha - Portfolio
 
-[![Live Demo](https://img.shields.io/badge/Live-amarjit--portfolio.vercel.app-blue?style=for-the-badge)](https://amarjit-portfolio.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-amarjit--dev.vercel.app-blue?style=for-the-badge)](https://amarjit-dev.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-AmarjeetJha17-181717?style=for-the-badge&logo=github)](https://github.com/AmarjeetJha17)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Amarjit%20Jha-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/amarjit-jha-556656280)
 
@@ -8,7 +8,7 @@ A modern, production-ready personal portfolio website built with Next.js 14, Rea
 
 ## 🌐 Live Demo
 
-**[https://amarjit-portfolio.vercel.app](https://amarjit-portfolio.vercel.app)**
+**[https://amarjit-dev.vercel.app](https://amarjit-dev.vercel.app)**
 
 ## 🚀 Features
 
