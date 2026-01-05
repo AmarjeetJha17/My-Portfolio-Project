@@ -14,7 +14,7 @@ export function BlogCard({ post, featured = false, className }: BlogCardProps) {
   return (
     <article
       className={cn(
-        'group card card-hover overflow-hidden',
+        'card card-hover group overflow-hidden',
         featured && 'md:col-span-2 md:flex md:gap-6',
         className
       )}
@@ -50,7 +50,12 @@ export function BlogCard({ post, featured = false, className }: BlogCardProps) {
         </div>
 
         {/* Title */}
-        <h3 className={cn('font-semibold text-neutral-900 dark:text-white', featured ? 'text-2xl' : 'text-xl')}>
+        <h3
+          className={cn(
+            'font-semibold text-neutral-900 dark:text-white',
+            featured ? 'text-2xl' : 'text-xl'
+          )}
+        >
           <Link
             href={`/blog/${post.slug}`}
             className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"

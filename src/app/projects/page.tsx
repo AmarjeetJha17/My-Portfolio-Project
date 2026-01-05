@@ -47,11 +47,7 @@ export default function ProjectsPage() {
 
       {/* Categories Section */}
       <Section className="bg-neutral-50 dark:bg-neutral-900/50">
-        <SectionHeader
-          title="Project Categories"
-          subtitle="Browse projects by type"
-          centered
-        />
+        <SectionHeader title="Project Categories" subtitle="Browse projects by type" centered />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -83,8 +79,8 @@ export default function ProjectsPage() {
             Have a project in mind?
           </h2>
           <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-            I&apos;m always excited to work on new and challenging projects. Let&apos;s discuss how I can
-            help bring your ideas to life.
+            I&apos;m always excited to work on new and challenging projects. Let&apos;s discuss how
+            I can help bring your ideas to life.
           </p>
           <a href="/contact" className="btn-primary mt-6">
             Start a Project

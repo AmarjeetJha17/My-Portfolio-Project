@@ -105,7 +105,13 @@ export interface Skill {
   icon?: string;
 }
 
-export type SkillCategory = 'frontend' | 'backend' | 'database' | 'devops' | 'tools' | 'soft-skills';
+export type SkillCategory =
+  | 'frontend'
+  | 'backend'
+  | 'database'
+  | 'devops'
+  | 'tools'
+  | 'soft-skills';
 
 export interface Certification {
   id: string;

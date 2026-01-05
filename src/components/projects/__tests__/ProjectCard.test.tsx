@@ -36,13 +36,13 @@ describe('ProjectCard', () => {
 
   it('renders limited tags with overflow indicator', () => {
     render(<ProjectCard project={mockProject} />);
-    
+
     // Should show first 4 tags
     expect(screen.getByText('React')).toBeInTheDocument();
     expect(screen.getByText('TypeScript')).toBeInTheDocument();
     expect(screen.getByText('Next.js')).toBeInTheDocument();
     expect(screen.getByText('Tailwind')).toBeInTheDocument();
-    
+
     // Should show +1 for remaining tags
     expect(screen.getByText('+1')).toBeInTheDocument();
   });

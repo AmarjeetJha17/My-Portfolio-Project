@@ -14,7 +14,7 @@ export function ProjectCard({ project, featured = false, className }: ProjectCar
   return (
     <article
       className={cn(
-        'group card card-hover overflow-hidden',
+        'card card-hover group overflow-hidden',
         featured && 'md:col-span-2 md:grid md:grid-cols-2 md:gap-6',
         className
       )}

@@ -83,7 +83,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </h1>
 
           {/* Description */}
-          <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">{project.description}</p>
+          <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
+            {project.description}
+          </p>
 
           {/* Meta */}
           <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
@@ -146,13 +148,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Main Content */}
             <div className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">About the Project</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
+                About the Project
+              </h2>
               <div className="prose-custom mt-4">
                 <p>{project.longDescription || project.description}</p>
               </div>
 
               {/* Features */}
-              <h3 className="mt-8 text-xl font-bold text-neutral-900 dark:text-white">Key Features</h3>
+              <h3 className="mt-8 text-xl font-bold text-neutral-900 dark:text-white">
+                Key Features
+              </h3>
               <ul className="mt-4 space-y-2 text-neutral-600 dark:text-neutral-400">
                 <li className="flex items-start gap-2">
                   <span className="text-primary-600">✓</span>
@@ -177,7 +183,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="space-y-6">
               {/* Technologies */}
               <div className="card">
-                <h3 className="font-semibold text-neutral-900 dark:text-white">Technologies Used</h3>
+                <h3 className="font-semibold text-neutral-900 dark:text-white">
+                  Technologies Used
+                </h3>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span

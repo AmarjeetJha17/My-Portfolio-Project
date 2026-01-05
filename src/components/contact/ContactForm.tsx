@@ -77,16 +77,14 @@ export function ContactForm({ className }: ContactFormProps) {
       }, 5000);
     } catch (error) {
       setFormState('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+      setErrorMessage(
+        error instanceof Error ? error.message : 'Something went wrong. Please try again.'
+      );
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={cn('space-y-6', className)}
-      noValidate
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className={cn('space-y-6', className)} noValidate>
       {/* Success Message */}
       {formState === 'success' && (
         <div
@@ -95,7 +93,9 @@ export function ContactForm({ className }: ContactFormProps) {
         >
           <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600 dark:text-green-400" />
           <div>
-            <h4 className="font-medium text-green-800 dark:text-green-200">Message sent successfully!</h4>
+            <h4 className="font-medium text-green-800 dark:text-green-200">
+              Message sent successfully!
+            </h4>
             <p className="mt-1 text-sm text-green-700 dark:text-green-300">
               Thank you for reaching out. I&apos;ll get back to you as soon as possible.
             </p>
@@ -214,11 +214,7 @@ export function ContactForm({ className }: ContactFormProps) {
       </div>
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={formState === 'submitting'}
-        className="btn-primary w-full"
-      >
+      <button type="submit" disabled={formState === 'submitting'} className="btn-primary w-full">
         {formState === 'submitting' ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />

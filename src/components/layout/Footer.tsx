@@ -141,7 +141,10 @@ export function Footer() {
               Privacy Policy
             </Link>
             <span>·</span>
-            <Link href="/sitemap.xml" className="hover:text-primary-600 dark:hover:text-primary-400">
+            <Link
+              href="/sitemap.xml"
+              className="hover:text-primary-600 dark:hover:text-primary-400"
+            >
               Sitemap
             </Link>
           </div>

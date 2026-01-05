@@ -46,10 +46,7 @@ export function Header() {
           : 'bg-transparent'
       )}
     >
-      <nav
-        className="container-custom"
-        aria-label="Main navigation"
-      >
+      <nav className="container-custom" aria-label="Main navigation">
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Logo */}
           <Link
@@ -172,7 +169,7 @@ export function Header() {
                 </Link>
               );
             })}
-            
+
             {/* Mobile Social Links */}
             <div className="mt-4 flex items-center justify-center gap-4 border-t border-neutral-200 pt-4 dark:border-neutral-800">
               {author.social.github && (

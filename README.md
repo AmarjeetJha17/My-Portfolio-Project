@@ -2,7 +2,6 @@
 
 A modern, production-ready personal portfolio website built with Next.js 14, React 18, TypeScript, and Tailwind CSS.
 
-
 ## 🚀 Features
 
 - **Modern Stack**: Next.js 14 (App Router), React 18, TypeScript 5, Tailwind CSS 3.4
